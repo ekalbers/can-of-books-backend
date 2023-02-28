@@ -1,9 +1,9 @@
 const express = require('express');
-const Book = require('./BookModel');
+const Book = require('../models/BookModel');
 
 const router = express.Router();
 
-router.get('/books', async (request, response) => {
+router.get('/', async (request, response) => {
 
     try {
         const book = await Book.find();
@@ -14,12 +14,10 @@ router.get('/books', async (request, response) => {
 
 });
 
-router.post('/', async (request, response) => {
+router.post('/add', async (request, response) => {
     const { title, author, description, status } = request.body;
     console.log(request.body);
     console.log(title);
-
-    /* const newBook = await Book.create({ "title": "The Impossible First", "author": "Colin Obrady", "description": "Colin O'Brady's awe-inspiring, New York Times bestselling memoir recounting his recovery from a tragic accident and his record-setting 932-mile solo crossing of Antarctica is a \"jaw-dropping tale of passion and perseverance\"", "status": true }); */
 
     try {
         const book = await Book.create({ title: title, author: author, description: description, status: status });
@@ -27,6 +25,10 @@ router.post('/', async (request, response) => {
     } catch (error) {
         response.status(400).json("there was an error post");
     }
+})
+
+router.delete('/:id', async (request, response) {
+
 })
 
 module.exports = router;
