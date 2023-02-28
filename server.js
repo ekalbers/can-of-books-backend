@@ -5,6 +5,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const app = express();
+
 const PORT = process.env.PORT
 const Books = require('./routes/books');
 const DATABASE_URL = process.env.DATABASE_URL;
@@ -27,5 +28,3 @@ mongoose.connect(DATABASE_URL)
   .catch((error) => {
     console.log(error);
   });
-
-
