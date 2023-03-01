@@ -27,6 +27,18 @@ router.post('/books', async (request, response) => {
     }
 })
 
+router.put('/books/:id', async (request, response) => {
+    const id = request.params.id;
+
+    try {
+        let updatedBook = await Book.findByIdAndUpdate(id, request.body, { new: true });
+        response.status(202).json(updatedBook);
+    } catch (error) {
+        response.status(404).send('unable to update');
+        console.error(error);
+    }
+});
+
 router.delete('/books/:id', async (request, response) => {
     const { id } = request.params;
 
